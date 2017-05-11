@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3: Visualizing execution trace</title>
+        <!--<script src="http://cpettitt.github.io/project/dagre-d3/latest/dagre-d3.js"></script>-->
+         <script type="text/javascript" src="dagre-d3.min.js"></script>
+        <script type="text/javascript" src="d3.min.js"></script>
+        <script type="text/javascript" src="js/ParsJson.js"></script>
+        <script type="text/javascript" src="js/states.js"></script>
+        <script type="text/javascript" src="js/visualization.js"></script>
+        <script type="text/javascript" src="js/graphTraversal.js"></script>
+        <script type="text/javascript" src="js/utilityfunctions.js"></script>
+        <link rel="stylesheet" href="css/mystyles.css">
+        <style type="text/css">
+
+        </style>
+    </head>
+    <body>
+
+      <div id="outercontainer">
+        <div id="topinfobar" class="row">
+          <div class="column column-12"> <h3>Dynamic Visualization of Evaluation.</h3> </div>
+        </div>
+
+        <div id="lefthalve" class="column columnbigger column-6">
+          <div id="lefttophalve" class="row">
+            <div id="loadtext" class="loadtext" height="250">
+              <h3>load JSON file.</h3>
+            </div>
+            
+            <form onsubmit="process_input();">
+              <input id="json_input" onchange="process_input()" type="file" accept=".json, application/json" />
+            </form> 
+          </div>
+        </div>
+
+        <div id="leftbottomhalve" class="column columnbigger column-6" height="250">
+          <div id="loadtext" class="loadtext">
+            <h3>environment.</h3>
+          </div>
+          <div id="environment" width="100%" height="250"></div>
+        </div>
+
+        <div id="emptyspace" class="row"></div>
+
+        <div id="righthalve" class="column column-12" height="800">
+          <div id="loadtext" class="loadtext">
+            <h3>Visualization.</h3>
+          </div>
+          <button type="button" onclick="NextNode()" onmouseout="removePopup()" onmouseover="showInformation('nextnode')">Next Node</button>
+          <button type="button" onclick="StepBack()" onmouseover="showInformation('stepback')" onmouseout="removePopup()">Step Back</button>
+          <button type="button" onclick="StepOver()" onmouseover="showInformation('stepover')" onmouseout="removePopup()">Step Over</button>
+          <button type="button" onclick="CollapseNodes()" onmouseover="showInformation('collapsenodes')" onmouseout="removePopup()">Collapse Nodes</button>
+          <button type="button" onclick="ShowFullGraph()" onmouseover="showInformation('showfullgraph')" onmouseout="removePopup()">Full Graph</button>
+          <button type="button" onclick="Reset()" onmouseover="showInformation('reset')" onmouseout="removePopup()">Reset</button>
+          <div id="popup" style="display: none;color:orange">some text here</div>
+          <p>Click on one of the nodes to show the environment for that node.</p>
+          <svg id = "mysvg" width="1100" height="2000" ></svg>
+        </div>
+      </div>
+
+        <script type="text/javascript">
+          
+        </script>
+    </body>
+</html>

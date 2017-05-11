@@ -1,0 +1,2063 @@
+{
+  "nodes" : [ {
+    "label" : "ev((letrec ((fact (lambda (n) (if (= n 0) 1 (* n (fact (- n 1))))))) (fact 5)))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(letrec ((fact (lambda (n) (if (= n 0) 1 (* n (fact (- n 1))))))) (fact 5))",
+      "env" : { }
+    },
+    "store" : { },
+    "kstore" : { },
+    "kont" : "HaltKontAddress",
+    "time" : "0"
+  }, {
+    "label" : "ev((fact 5))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(fact 5)",
+      "env" : {
+        "fact" : "@fact-0"
+      }
+    },
+    "store" : {
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : { },
+    "kont" : "HaltKontAddress",
+    "time" : "1"
+  }, {
+    "label" : "call(fact, [5])",
+    "control" : {
+      "type" : "call",
+      "fexp" : "fact",
+      "args" : [ "5" ]
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "2"
+  }, {
+    "label" : "ev((if (= n 0) 1 (* n (fact (- n 1)))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(if (= n 0) 1 (* n (fact (- n 1))))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-1"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "3"
+  }, {
+    "label" : "ev((= n 0))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(= n 0)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-1"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : {
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "4"
+  }, {
+    "label" : "ko(#f)",
+    "control" : {
+      "type" : "kont",
+      "value" : "#f"
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : {
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "5"
+  }, {
+    "label" : "ev((* n (fact (- n 1))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(* n (fact (- n 1)))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-1"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : {
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "6"
+  }, {
+    "label" : "ev((fact (- n 1)))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(fact (- n 1))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-1"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : {
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "7"
+  }, {
+    "label" : "ev((- n 1))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(- n 1)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-1"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : {
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "8"
+  }, {
+    "label" : "ko(4)",
+    "control" : {
+      "type" : "kont",
+      "value" : "4"
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>"
+    },
+    "kstore" : {
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "9"
+  }, {
+    "label" : "call(fact, [4])",
+    "control" : {
+      "type" : "call",
+      "fexp" : "fact",
+      "args" : [ "4" ]
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "10"
+  }, {
+    "label" : "ev((if (= n 0) 1 (* n (fact (- n 1)))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(if (= n 0) 1 (* n (fact (- n 1))))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-9"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "11"
+  }, {
+    "label" : "ev((= n 0))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(= n 0)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-9"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "12"
+  }, {
+    "label" : "ko(#f)",
+    "control" : {
+      "type" : "kont",
+      "value" : "#f"
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "13"
+  }, {
+    "label" : "ev((* n (fact (- n 1))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(* n (fact (- n 1)))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-9"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "14"
+  }, {
+    "label" : "ev((fact (- n 1)))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(fact (- n 1))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-9"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "15"
+  }, {
+    "label" : "ev((- n 1))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(- n 1)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-9"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "16"
+  }, {
+    "label" : "ko(3)",
+    "control" : {
+      "type" : "kont",
+      "value" : "3"
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "17"
+  }, {
+    "label" : "call(fact, [3])",
+    "control" : {
+      "type" : "call",
+      "fexp" : "fact",
+      "args" : [ "3" ]
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "18"
+  }, {
+    "label" : "ev((if (= n 0) 1 (* n (fact (- n 1)))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(if (= n 0) 1 (* n (fact (- n 1))))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-17"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "19"
+  }, {
+    "label" : "ev((= n 0))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(= n 0)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-17"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "20"
+  }, {
+    "label" : "ko(#f)",
+    "control" : {
+      "type" : "kont",
+      "value" : "#f"
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "21"
+  }, {
+    "label" : "ev((* n (fact (- n 1))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(* n (fact (- n 1)))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-17"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "22"
+  }, {
+    "label" : "ev((fact (- n 1)))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(fact (- n 1))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-17"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "23"
+  }, {
+    "label" : "ev((- n 1))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(- n 1)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-17"
+      }
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "24"
+  }, {
+    "label" : "ko(2)",
+    "control" : {
+      "type" : "kont",
+      "value" : "2"
+    },
+    "store" : {
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "25"
+  }, {
+    "label" : "call(fact, [2])",
+    "control" : {
+      "type" : "call",
+      "fexp" : "fact",
+      "args" : [ "2" ]
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "26"
+  }, {
+    "label" : "ev((if (= n 0) 1 (* n (fact (- n 1)))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(if (= n 0) 1 (* n (fact (- n 1))))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-25"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "27"
+  }, {
+    "label" : "ev((= n 0))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(= n 0)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-25"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "28"
+  }, {
+    "label" : "ko(#f)",
+    "control" : {
+      "type" : "kont",
+      "value" : "#f"
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "29"
+  }, {
+    "label" : "ev((* n (fact (- n 1))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(* n (fact (- n 1)))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-25"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "30"
+  }, {
+    "label" : "ev((fact (- n 1)))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(fact (- n 1))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-25"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "31"
+  }, {
+    "label" : "ev((- n 1))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(- n 1)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-25"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "32"
+  }, {
+    "label" : "ko(1)",
+    "control" : {
+      "type" : "kont",
+      "value" : "1"
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "33"
+  }, {
+    "label" : "call(fact, [1])",
+    "control" : {
+      "type" : "call",
+      "fexp" : "fact",
+      "args" : [ "1" ]
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "34"
+  }, {
+    "label" : "ev((if (= n 0) 1 (* n (fact (- n 1)))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(if (= n 0) 1 (* n (fact (- n 1))))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-33"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "35"
+  }, {
+    "label" : "ev((= n 0))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(= n 0)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-33"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "36"
+  }, {
+    "label" : "ko(#f)",
+    "control" : {
+      "type" : "kont",
+      "value" : "#f"
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "37"
+  }, {
+    "label" : "ev((* n (fact (- n 1))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(* n (fact (- n 1)))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-33"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "38"
+  }, {
+    "label" : "ev((fact (- n 1)))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(fact (- n 1))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-33"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "39"
+  }, {
+    "label" : "ev((- n 1))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(- n 1)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-33"
+      }
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "40"
+  }, {
+    "label" : "ko(0)",
+    "control" : {
+      "type" : "kont",
+      "value" : "0"
+    },
+    "store" : {
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((- n 1))",
+    "time" : "41"
+  }, {
+    "label" : "call(fact, [0])",
+    "control" : {
+      "type" : "call",
+      "fexp" : "fact",
+      "args" : [ "0" ]
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "42"
+  }, {
+    "label" : "ev((if (= n 0) 1 (* n (fact (- n 1)))))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(if (= n 0) 1 (* n (fact (- n 1))))",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-41"
+      }
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "43"
+  }, {
+    "label" : "ev((= n 0))",
+    "control" : {
+      "type" : "ev",
+      "exp" : "(= n 0)",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-41"
+      }
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "44"
+  }, {
+    "label" : "ko(#t)",
+    "control" : {
+      "type" : "kont",
+      "value" : "#t"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((= n 0))",
+    "time" : "45"
+  }, {
+    "label" : "ev(1)",
+    "control" : {
+      "type" : "ev",
+      "exp" : "1",
+      "env" : {
+        "fact" : "@fact-0",
+        "n" : "@n-41"
+      }
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "46"
+  }, {
+    "label" : "ko(1)",
+    "control" : {
+      "type" : "kont",
+      "value" : "1"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "47"
+  }, {
+    "label" : "return(fact, 1)",
+    "control" : {
+      "type" : "return",
+      "fexp" : "fact",
+      "value" : "1"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "48"
+  }, {
+    "label" : "ko(1)",
+    "control" : {
+      "type" : "kont",
+      "value" : "1"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "49"
+  }, {
+    "label" : "return(fact, 1)",
+    "control" : {
+      "type" : "return",
+      "fexp" : "fact",
+      "value" : "1"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "50"
+  }, {
+    "label" : "ko(2)",
+    "control" : {
+      "type" : "kont",
+      "value" : "2"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "51"
+  }, {
+    "label" : "return(fact, 2)",
+    "control" : {
+      "type" : "return",
+      "fexp" : "fact",
+      "value" : "2"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "52"
+  }, {
+    "label" : "ko(6)",
+    "control" : {
+      "type" : "kont",
+      "value" : "6"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "53"
+  }, {
+    "label" : "return(fact, 6)",
+    "control" : {
+      "type" : "return",
+      "fexp" : "fact",
+      "value" : "6"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "54"
+  }, {
+    "label" : "ko(24)",
+    "control" : {
+      "type" : "kont",
+      "value" : "24"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "55"
+  }, {
+    "label" : "return(fact, 24)",
+    "control" : {
+      "type" : "return",
+      "fexp" : "fact",
+      "value" : "24"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "NormalKontAddress((fact (- n 1)))",
+    "time" : "56"
+  }, {
+    "label" : "ko(120)",
+    "control" : {
+      "type" : "kont",
+      "value" : "120"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))",
+    "time" : "57"
+  }, {
+    "label" : "return(fact, 120)",
+    "control" : {
+      "type" : "return",
+      "fexp" : "fact",
+      "value" : "120"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "HaltKontAddress",
+    "time" : "58"
+  }, {
+    "label" : "ko(120)",
+    "control" : {
+      "type" : "kont",
+      "value" : "120"
+    },
+    "store" : {
+      "@n-41" : "0",
+      "@n-25" : "2",
+      "@n-1" : "5",
+      "@fact-0" : "#<clo>",
+      "@n-17" : "3",
+      "@n-9" : "4",
+      "@n-33" : "1"
+    },
+    "kstore" : {
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),HaltKontAddress)" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((- n 1))" : [ "Kont(FrameFuncallOperands,NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((= n 0))" : [ "Kont(FrameIf,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1)))))" : [ "Kont(FunctionMarkerFrame(fact),NormalKontAddress((fact (- n 1))))" ],
+      "NormalKontAddress((fact (- n 1)))" : [ "Kont(FrameFuncallOperands,FunctionKontAddress(fact, (if (= n 0) 1 (* n (fact (- n 1))))))" ]
+    },
+    "kont" : "HaltKontAddress",
+    "time" : "59"
+  } ],
+  "edges" : [ [ [ 1, {
+    "label" : ""
+  } ] ], [ [ 2, {
+    "label" : ""
+  } ] ], [ [ 3, {
+    "label" : ""
+  } ] ], [ [ 4, {
+    "label" : ""
+  } ] ], [ [ 5, {
+    "label" : ""
+  } ] ], [ [ 6, {
+    "label" : ""
+  } ] ], [ [ 7, {
+    "label" : ""
+  } ] ], [ [ 8, {
+    "label" : ""
+  } ] ], [ [ 9, {
+    "label" : ""
+  } ] ], [ [ 10, {
+    "label" : ""
+  } ] ], [ [ 11, {
+    "label" : ""
+  } ] ], [ [ 12, {
+    "label" : ""
+  } ] ], [ [ 13, {
+    "label" : ""
+  } ] ], [ [ 14, {
+    "label" : ""
+  } ] ], [ [ 15, {
+    "label" : ""
+  } ] ], [ [ 16, {
+    "label" : ""
+  } ] ], [ [ 17, {
+    "label" : ""
+  } ] ], [ [ 18, {
+    "label" : ""
+  } ] ], [ [ 19, {
+    "label" : ""
+  } ] ], [ [ 20, {
+    "label" : ""
+  } ] ], [ [ 21, {
+    "label" : ""
+  } ] ], [ [ 22, {
+    "label" : ""
+  } ] ], [ [ 23, {
+    "label" : ""
+  } ] ], [ [ 24, {
+    "label" : ""
+  } ] ], [ [ 25, {
+    "label" : ""
+  } ] ], [ [ 26, {
+    "label" : ""
+  } ] ], [ [ 27, {
+    "label" : ""
+  } ] ], [ [ 28, {
+    "label" : ""
+  } ] ], [ [ 29, {
+    "label" : ""
+  } ] ], [ [ 30, {
+    "label" : ""
+  } ] ], [ [ 31, {
+    "label" : ""
+  } ] ], [ [ 32, {
+    "label" : ""
+  } ] ], [ [ 33, {
+    "label" : ""
+  } ] ], [ [ 34, {
+    "label" : ""
+  } ] ], [ [ 35, {
+    "label" : ""
+  } ] ], [ [ 36, {
+    "label" : ""
+  } ] ], [ [ 37, {
+    "label" : ""
+  } ] ], [ [ 38, {
+    "label" : ""
+  } ] ], [ [ 39, {
+    "label" : ""
+  } ] ], [ [ 40, {
+    "label" : ""
+  } ] ], [ [ 41, {
+    "label" : ""
+  } ] ], [ [ 42, {
+    "label" : ""
+  } ] ], [ [ 43, {
+    "label" : ""
+  } ] ], [ [ 44, {
+    "label" : ""
+  } ] ], [ [ 45, {
+    "label" : ""
+  } ] ], [ [ 46, {
+    "label" : ""
+  } ] ], [ [ 47, {
+    "label" : ""
+  } ] ], [ [ 48, {
+    "label" : ""
+  } ] ], [ [ 49, {
+    "label" : ""
+  } ] ], [ [ 50, {
+    "label" : ""
+  } ] ], [ [ 51, {
+    "label" : ""
+  } ] ], [ [ 52, {
+    "label" : ""
+  } ] ], [ [ 53, {
+    "label" : ""
+  } ] ], [ [ 54, {
+    "label" : ""
+  } ] ], [ [ 55, {
+    "label" : ""
+  } ] ], [ [ 56, {
+    "label" : ""
+  } ] ], [ [ 57, {
+    "label" : ""
+  } ] ], [ [ 58, {
+    "label" : ""
+  } ] ], [ [ 59, {
+    "label" : ""
+  } ] ] ]
+}
