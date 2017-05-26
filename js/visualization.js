@@ -7,11 +7,8 @@ function visualize(nodes,render){
 	    return selection.transition().duration(1000);
 	};
 
-	// Cleanup old graph but save the relative position
-	var gs = d3.select("svg").selectAll("g")
-
-	gs.selectAll("*").remove();
-	d3.behavior.zoom().on("zoom", null)
+	// Cleanup old graph 
+	RemoveVisualizations()
 
 	// we create additional nodes if necesary
 	for (var node of nodes){
@@ -67,18 +64,25 @@ function visualize(nodes,render){
 	translatetemp = translate.map(function (num,idx){
 		return num + translatetemp[idx];
 	});
-	scaletemp = scale * scaletemp;;
-	inner.attr("transform", "translate(" + translatetemp + ")" +
-	                            "scale(" + scaletemp + ")");
+	scaletemp = scale * scaletemp;;;
+	inner.attr("transform", "translate(" + translatetemp + ")" + 
+							"scale(" + scaletemp + ")");
 
 	synchronize = false;
+
 	//Set up zoom support
 	var zoom = d3.behavior.zoom().on("zoom", function() {
 		var newtranslate = translatetemp.map(function (num,idx){
 			return num + d3.event.translate[idx];
 		});
+		//bound the movement
 		var newscale = scaletemp * d3.event.scale;
 
+		newtranslate = [
+		    Math.max(Math.min(newtranslate[0], svg.attr("width") - g.graph().width - 100), 100 - g.graph().width),
+		    Math.max(Math.min(newtranslate[1], 1800), -200)
+		];
+		//move
 	    inner.attr("transform", "translate(" + newtranslate + ")" +
 	                                "scale(" + newscale + ")");
 	    scale = d3.event.scale;
@@ -282,7 +286,8 @@ function addNode(node,graph,key,formattedlabel,storage,nodestyle){
 }
 
 /*this function starts the visualization process*/
-function initializeVisualization(nodes,render){
+function initializeVisualization(nodes,render,lastnumber){
+	var start = +new Date();
 	var g = new dagreD3.graphlib.Graph().setGraph({});
 
 	g.graph().transition = function transition(selection) { //transition with duration 1000ms
@@ -296,34 +301,29 @@ function initializeVisualization(nodes,render){
 		var storage = node.storage;
 		var visible = node.visibility;
 		var neighbours = node.edges;
-
-		if(controltype == "ev"){
-			var value = node.control.expression;
-			var formattedlabel = controltype + " : " + value + "\n" + key;
-			g.setNode(key,{ label: formattedlabel, store: storage, actualnode : node, style: "fill: #afa" });
-		}else if (controltype == "kont"){
-			var value = node.control.expression;
-			var formattedlabel = controltype + " : " + value + "\n" + key;
-			g.setNode(key,{ label: formattedlabel, store: storage, actualnode : node, style: "fill: #faa" });
-		}else if (controltype == "call"){
-			var value = node.control.expression + "(" + node.control.environment.toString() + ")";
-			var formattedlabel = controltype + " : " + value + "\n" + key;
-			g.setNode(key,{ label: formattedlabel, store: storage, actualnode : node, style: "fill: #aaf" });
-		}else if (controltype == "return"){
-			var value = node.control.expression + " --> " + node.control.environment;
-			var formattedlabel = controltype + " : " + value + "\n" + key;
-			g.setNode(key,{ label: formattedlabel, store: storage, actualnode : node, style: "fill: #aff" });
+		if(visible){
+			if(controltype == "ev"){
+				var value = node.control.expression;
+				var formattedlabel = controltype + " : " + value + "\n" + key;
+				g.setNode(key,{ label: formattedlabel, store: storage, actualnode : node, style: "fill: #afa" });
+			}else if (controltype == "kont"){
+				var value = node.control.expression;
+				var formattedlabel = controltype + " : " + value + "\n" + key;
+				g.setNode(key,{ label: formattedlabel, store: storage, actualnode : node, style: "fill: #faa" });
+			}else if (controltype == "call"){
+				var value = node.control.expression + "(" + node.control.environment.toString() + ")";
+				var formattedlabel = controltype + " : " + value + "\n" + key;
+				g.setNode(key,{ label: formattedlabel, store: storage, actualnode : node, style: "fill: #aaf" });
+			}else if (controltype == "return"){
+				var value = node.control.expression + " --> " + node.control.environment;
+				var formattedlabel = controltype + " : " + value + "\n" + key;
+				g.setNode(key,{ label: formattedlabel, store: storage, actualnode : node, style: "fill: #aff" });
+			}
 		}
 	}
 
 	//connect nodes
-	for (var node of nodes){
-		if (node.edges != null){
-			for (var i = 0; i < node.edges.length; i++){
-				g.setEdge(node.position,node.edges[i].node2name,{});
-			}
-		};
-	}
+	g.setEdge(0,lastnumber,{label: "Nodes in between"});
 
 	// rounded corners
 	g.nodes().forEach(function(v) {
@@ -331,12 +331,6 @@ function initializeVisualization(nodes,render){
 	  node.rx = node.ry = 5;
 	});
 
-	//remove nodes that are not visible at the moment
-	for(var node of nodes){
-		if (node.visibility == false) {
-			removeNode(node,g);
-		};
-	}
 
 	// Set up an SVG group so that we can translate the final graph.
 	var svg = d3.select("svg"), inner = svg.append("g");
@@ -345,6 +339,7 @@ function initializeVisualization(nodes,render){
 	zoom = d3.behavior.zoom().on("zoom", function() {
 		var previoustranslate = translate;
 		var previousscale = scale;
+		startpos = previoustranslate;
 	    inner.attr("transform", "translate(" + previoustranslate + ")" +
 	                                "scale(" + previousscale + ")");
 	    scale = d3.event.scale;
@@ -397,12 +392,18 @@ function initializeVisualization(nodes,render){
 			};
 		};
 	});
+	var end = +new Date();
+	var diff = end - start;
+	//console.log("the difference in time to start up the graph = " + diff);
 	return g;
 }
 
 function RemoveVisualizations(){
-	var gs = d3.select("svg").selectAll("g")
-	gs.selectAll("*").remove();
+	var gs = d3.select("svg").selectAll("g").remove();
 	d3.behavior.zoom().on("zoom", null)
+}
+
+function centralizeGraph(g){
+	
 }
 
