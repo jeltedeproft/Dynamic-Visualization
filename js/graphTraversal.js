@@ -1,5 +1,6 @@
 //we're stepping inside a function call
 function NextNode(){
+	var start = +new Date();
 	var Nodes = nodes;
 	var graph = VisualGraph;
 	var renderer = render;
@@ -23,9 +24,13 @@ function NextNode(){
 
 		selectedGraphNode = VisualGraph.node(nextNode.position.toString());
 	}
+	var end = +new Date();
+	var diff = end - start;
+	console.log("the difference in time to next node = " + diff);
 }
 
 function StepBack(){
+	var start = +new Date();
 	var Nodes = nodes;
 	var graph = VisualGraph;
 	var renderer = render;
@@ -48,9 +53,13 @@ function StepBack(){
 
 		selectedGraphNode = VisualGraph.node(previousNode.position.toString());
 	}
+	var end = +new Date();
+	var diff = end - start;
+	console.log("the difference in time to step back = " + diff);
 }
 
 function StepOver(){
+	var start = +new Date();
 	var Nodes = nodes;
 	var graph = VisualGraph;
 	var renderer = render;
@@ -66,10 +75,10 @@ function StepOver(){
 			var child = edges[i].node2name;
 			visitednodes.push(child);
 			currentNode = findNodeByIndex(parseInt(child));
-			currentNode.visibility = true;
+			currentNode.visibility = false;
 			currentNodeIndex = child;
 
-			//found a call node, a loop or a node at the far end?
+			//found a loop or a node at the far end?
 			if ((!CheckDoubles(child,visitednodes)) || (edges == null)){
 				//do nothing, this branch is cleared
 			}else{
@@ -82,6 +91,9 @@ function StepOver(){
 		}
 	}
 	VisualGraph = visualize(Nodes,render);
+	var end = +new Date();
+	var diff = end - start;
+	console.log("the difference in time to step over = " + diff);
 }
 
 function checkBranchForCallNode(nodename,visitedNodes){
@@ -98,16 +110,17 @@ function checkBranchForCallNode(nodename,visitedNodes){
 			var child = edges[i].node2name;
 			visitednodes.push(child);
 			currentNode = findNodeByIndex(parseInt(child));
-			currentNode.visibility = true;
+			currentNode.visibility = false;
 			currentNodeIndex = child;
 
-			//found a call node, a loop or a node at the far end?
+			//found a loop or a node at the far end?
 			if ((!CheckDoubles(child,visitednodes)) || (edges == null)){
 				//do nothing, this branch is cleared
 			}else{
 				if (currentNode.control.controltype != "call") {
 					checkBranchForCallNode(child,visitednodes);
 				} else{
+					currentNode.visibility = true;
 					checkBranchForReturnNode(child,visitednodes,currentNode.control.nesting);
 				};
 			}
@@ -149,6 +162,7 @@ function checkBranchForReturnNode(nodename,visitedNodes,nesting){
 }
 
 function CollapseNodes(){
+	var start = +new Date();
 	var Nodes = nodes;
 	var currentNodeIndex = selectedNodeID;
 	var currentNode = selectedNode;
@@ -167,9 +181,13 @@ function CollapseNodes(){
 
 	/*visualize*/
 	VisualGraph = visualize(Nodes,render);
+	var end = +new Date();
+	var diff = end - start;
+	console.log("the difference in time to collapse = " + diff);
 }
 
 function ShowFullGraph(){
+	var start = +new Date();
 	var Nodes = nodes;
 
 	for (var node of Nodes){
@@ -190,6 +208,7 @@ function ShowFullGraph(){
 			}
 		}
 	}
+	synchronize = false;
 
 	/*visualize*/
 	VisualGraph = visualize(Nodes,render);
@@ -215,9 +234,13 @@ function ShowFullGraph(){
 
 	inner.attr("transform", "translate(" + previoustranslate + ")" +
 	                                "scale(" + previousscale + ")");
+	var end = +new Date();
+	var diff = end - start;
+	console.log("the difference in time to showfullgraph = " + diff);
 }
 
 function Reset(){
+	var start = +new Date();
 	var Nodes = nodes;
 	var lastnumber = Object.keys(nodes).length - 1;
 
@@ -231,8 +254,49 @@ function Reset(){
 			node.visibility = false;
 		}
 	}
+
+	/*prepare information for centralizing graph*/
+	var gsPre = d3.select("svg").selectAll("g")
+	var XPre;
+	var YPre;
+
+	for (var i = 0; i < gsPre.length; i++) {
+		for (var j = 0; j < gsPre[i].length; j++) {
+			var elPre = gsPre[i][j];
+			if(elPre.className.baseVal == "output"){
+				XPre = elPre.getScreenCTM().e;
+				YPre = elPre.getScreenCTM().f;
+			}
+		}
+	}
+	
 	/*visualize*/
 	VisualGraph = visualize(Nodes,render);
+
+	/*centralize graph*/
+	var gs = d3.select("svg").selectAll("g")
+	var X;
+	var Y;
+
+	for (var i = 0; i < gs.length; i++) {
+		for (var j = 0; j < gs[i].length; j++) {
+			var el = gs[i][j];
+			if(el.className.baseVal == "output"){
+				X = el.getScreenCTM().e;
+				Y = el.getScreenCTM().f;
+			}
+		}
+	}
+	diffX = X - XPre;
+	diffY = Y - YPre;
+	var previoustranslate = translate;
+	var previousscale = scale;
+
+	inner.attr("transform", "translate(" + previoustranslate + ")" +
+	                                "scale(" + previousscale + ")");
+	var end = +new Date();
+	var diff = end - start;
+	console.log("the difference in time to reset = " + diff);
 }
 
 function showInformation(element){
@@ -244,9 +308,8 @@ function showInformation(element){
 	}else if (element == "stepback"){
 		doc.innerHTML = "this function allows you to hide the currently selected node";
 	}else if (element == "stepover"){
-		doc.innerHTML = "this function allows you to skip towards the next function call" +  
-						"and then hide all nodes up until the return node of that function." + 
-						"Effectively skipping over the closest by function call";
+		doc.innerHTML = "this function skips to the next function call and then skips again to its return node" + 
+						"effectively skipping over the next function call";
 	}else if (element == "collapsenodes"){
 		doc.innerHTML = "this function allows you to collapse all nodes after the currently selected one" +
 						"(All nodes with a higher node number).";
